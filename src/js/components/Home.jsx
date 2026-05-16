@@ -20,7 +20,30 @@ const Home = () => {
       return !prev;
     });
   };
-
+eturn (
+    <div className="container">
+      <div className="stick"></div>
+      <div className="traffic-light">
+        {allColors.map(c => (
+          <div
+            key={c}
+            role="button"
+            aria-label={`Luz ${c}`}
+            onClick={() => setColor(c)}
+            className={`light ${c}${color === c ? ` glow-${c}` : ""}`}
+          />
+        ))}
+      </div>
+      <div className="buttons-container">
+        <button className="btn btn-primary" onClick={cycleColor}>
+          Alternar color
+        </button>
+        <button className="btn btn-info" onClick={togglePurple}>
+          {showPurple ? "Quitar luz púrpura" : "Añadir luz púrpura"}
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Home;
