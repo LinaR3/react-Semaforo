@@ -20,7 +20,7 @@ const Home = () => {
       return !prev;
     });
   };
-eturn (
+return (
     <div className="container">
       <div className="stick"></div>
       <div className="traffic-light">
@@ -35,10 +35,10 @@ eturn (
         ))}
       </div>
       <div className="buttons-container">
-        <button className="btn btn-primary" onClick={cycleColor}>
+        <button className="btn btn-semaforo" onClick={cycleColor}>
           Alternar color
         </button>
-        <button className="btn btn-info" onClick={togglePurple}>
+        <button className="btn btn-semaforo" onClick={togglePurple}>
           {showPurple ? "Quitar luz púrpura" : "Añadir luz púrpura"}
         </button>
       </div>
