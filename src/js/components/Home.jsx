@@ -6,6 +6,8 @@ const COLORS = ["red", "yellow", "green"];
 const Home = () => {
   const [color, setColor] = useState("red");
   const [showPurple, setShowPurple] = useState(false);
+  const [isAuto, setIsAuto] = useState(false);
+  const intervalRef = useRef(null)
 
   const allColors = showPurple ? [...COLORS, "purple"] : COLORS;
 
@@ -20,9 +22,7 @@ const Home = () => {
       return !prev;
     });
   };
-  const [isAuto, setIsAuto] = useState(false);
-  const intervalRef = useRef(null)
-  
+
 return (
     <div className="container">
       <div className="stick"></div>
