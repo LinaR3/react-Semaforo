@@ -135,7 +135,7 @@ const Home = () => {
 
       {/* columna derecha — historial */}
       <div className="right-column">
-        <h2 className="history-title">Historial</h2>
+        <h2 className="history-title">Historial Clicks</h2>
         <ul className="history-list">
           {history.map((entry, i) => (
             <li key={i} className={`history-item ${i === 0 ? "history-item--latest" : ""}`}>
