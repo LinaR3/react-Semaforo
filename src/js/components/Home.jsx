@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../../styles/home.css';
 
 const COLORS = ["red", "yellow", "green"];
@@ -20,6 +20,9 @@ const Home = () => {
       return !prev;
     });
   };
+  const [isAuto, setIsAuto] = useState(false);
+  const intervalRef = useRef(null)
+  
 return (
     <div className="container">
       <div className="stick"></div>
