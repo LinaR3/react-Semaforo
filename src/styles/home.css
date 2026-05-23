@@ -63,3 +63,15 @@
   background-color: #666;
   color: #fff;
 }
+
+.auto-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.auto-buttons .btn-semaforo {
+  min-width: 60px;
+  font-size: 0.85rem;
+}

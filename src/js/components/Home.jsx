@@ -7,13 +7,16 @@ const Home = () => {
   const [color, setColor] = useState("red");
   const [showPurple, setShowPurple] = useState(false);
   const [isAuto, setIsAuto] = useState(false);
-  const intervalRef = useRef(null)
+  const [autoInterval, setAutoInterval] = useState(5000);
+  const intervalRef = useRef(null);
 
   const allColors = showPurple ? [...COLORS, "purple"] : COLORS;
 
   const cycleColor = () => {
-    const i = allColors.indexOf(color);
-    setColor(allColors[(i + 1) % allColors.length]);
+    setColor(prev => {
+      const i = allColors.indexOf(prev);
+      return allColors[(i + 1) % allColors.length];
+    });
   };
 
   const togglePurple = () => {
@@ -23,7 +26,25 @@ const Home = () => {
     });
   };
 
-return (
+  const toggleAuto = () => {
+    setIsAuto(prev => !prev);
+  };
+
+  useEffect(() => {
+    if (isAuto) {
+      intervalRef.current = setInterval(() => {
+        setColor(prev => {
+          const i = allColors.indexOf(prev);
+          return allColors[(i + 1) % allColors.length];
+        });
+      }, autoInterval);
+    } else {
+      clearInterval(intervalRef.current);
+    }
+    return () => clearInterval(intervalRef.current);
+  }, [isAuto, autoInterval, allColors]);
+
+  return (
     <div className="container">
       <div className="stick"></div>
       <div className="traffic-light">
@@ -32,18 +53,40 @@ return (
             key={c}
             role="button"
             aria-label={`Luz ${c}`}
-            onClick={() => setColor(c)}
+            onClick={() => !isAuto && setColor(c)}
             className={`light ${c}${color === c ? ` glow-${c}` : ""}`}
           />
         ))}
       </div>
+
       <div className="buttons-container">
-        <button className="btn btn-semaforo" onClick={cycleColor}>
+        <button className="btn btn-semaforo" onClick={cycleColor} disabled={isAuto}>
           Alternar color
         </button>
-        <button className="btn btn-semaforo" onClick={togglePurple}>
+        <button className="btn btn-semaforo" onClick={togglePurple} disabled={isAuto}>
           {showPurple ? "Quitar luz púrpura" : "Añadir luz púrpura"}
         </button>
+
+        <button
+          className={`btn btn-semaforo ${isAuto ? "btn-active" : ""}`}
+          onClick={toggleAuto}
+        >
+          {isAuto ? "⏹ Desactivar automático" : "▶ Activar automático"}
+        </button>
+
+        {isAuto && (
+          <div className="auto-buttons">
+            {[5000, 15000, 20000].map(ms => (
+              <button
+                key={ms}
+                className={`btn btn-semaforo ${autoInterval === ms ? "btn-active" : ""}`}
+                onClick={() => setAutoInterval(ms)}
+              >
+                {ms / 1000}s
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
